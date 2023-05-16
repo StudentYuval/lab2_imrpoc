@@ -3,10 +3,13 @@ package com.example.myimageproc;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 
 public class MyImageProc {
 
+
+    public static float SIGMA_SPATIAL_DEFAULT = 10.0f;
     private static void sobelFilter(Mat inputImage, Mat outputImage) {
         //Applies Sobel filter to image
         Mat grad_x = new Mat();
@@ -64,6 +67,36 @@ public class MyImageProc {
         sobelFilter(inputImage, filteredImage);
         int[] window = setWindow(displayImage);
         displayFilter(displayImage, filteredImage, window);
+    }
+
+    private static void gaussianFilter(Mat inputImage, Mat outputImage,
+                                       float sigma) {
+        //Applies Gaussian filter to image
+        Size ksize = new Size(4 * (int) sigma + 1, 4 * (int) sigma + 1);
+        try {
+            // sigmaX = sigmaY = sigma
+            Imgproc.GaussianBlur(inputImage, outputImage, ksize, sigma,
+                    sigma);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        } }
+
+    private static void gaussianFilter(Mat inputImage, Mat outputImage) {
+        gaussianFilter(inputImage, outputImage, SIGMA_SPATIAL_DEFAULT);
+    }
+
+    public static void gaussianCalcDisplay(Mat displayImage, Mat
+            inputImage, Mat filteredImage, float sigma) {
+        //applies a Gaussian filter and displays the result on the screen using the displayFilter function
+        gaussianFilter(inputImage, filteredImage, sigma);
+        int[] window = setWindow(displayImage);
+
+        displayFilter(displayImage, filteredImage, window);
+    }
+    public static void gaussianCalcDisplay(Mat displayImage, Mat
+            inputImage, Mat filteredImage) {
+        gaussianCalcDisplay(displayImage, inputImage, filteredImage,
+                SIGMA_SPATIAL_DEFAULT);
     }
 
 }

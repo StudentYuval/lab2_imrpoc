@@ -12,6 +12,7 @@ class CameraListener implements CameraBridgeViewBase.CvCameraViewListener2 {
     static final int VIEW_MODE_RGBA      = 1;
     static final int VIEW_MODE_GRAYSCALE = 2;
     static final int VIEW_MODE_SOBEL = 3;
+    static final int VIEW_MODE_GAUSSIAN = 4;
 
     //Mode selectors:
     private int mViewMode  = VIEW_MODE_DEFAULT;

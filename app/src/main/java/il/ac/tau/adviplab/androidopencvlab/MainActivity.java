@@ -136,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
         SubMenu linearMenu = filteringMenu.addSubMenu("Linear");
         linearMenu.add(FILTER_GROUP_ID, CameraListener.VIEW_MODE_SOBEL,
                 Menu.NONE, "Sobel");
+        linearMenu.add(FILTER_GROUP_ID, CameraListener.VIEW_MODE_GAUSSIAN,
+                Menu.NONE, "Gaussian");
         SubMenu nonLinearMenu = filteringMenu.addSubMenu("Non-Linear");
         return true;
     }
