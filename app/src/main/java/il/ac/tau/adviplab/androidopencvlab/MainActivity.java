@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_GROUP_ID     = 3;
     private static final int DEFAULT_GROUP_ID    = 4;
     private static final int COLOR_GROUP_ID      = 5;
+    private static final int FILTER_GROUP_ID = 6;
 
     private MyJavaCameraView mOpenCvCameraView;
 
@@ -131,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
         colorMenu.add(COLOR_GROUP_ID, CameraListener.VIEW_MODE_RGBA, Menu.NONE, "RGBA");
         colorMenu.add(COLOR_GROUP_ID, CameraListener.VIEW_MODE_GRAYSCALE, Menu.NONE, "Grayscale");
 
+        Menu filteringMenu = menu.addSubMenu("Filter");
+        SubMenu linearMenu = filteringMenu.addSubMenu("Linear");
+        linearMenu.add(FILTER_GROUP_ID, CameraListener.VIEW_MODE_SOBEL,
+                Menu.NONE, "Sobel");
+        SubMenu nonLinearMenu = filteringMenu.addSubMenu("Non-Linear");
         return true;
     }
 
@@ -152,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (groupId) {
             case DEFAULT_GROUP_ID:
+            case FILTER_GROUP_ID:
                 mCameraListener.setViewMode(id);
                 return true;
 

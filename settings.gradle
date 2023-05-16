@@ -1,3 +1,4 @@
 rootProject.name = "Lab_2_Template"
 include ':app'
 include ':opencv'
+include ':myimageproc'

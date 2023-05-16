@@ -1,5 +1,7 @@
 package il.ac.tau.adviplab.androidopencvlab;
 
+import com.example.myimageproc.MyImageProc;
+
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.core.Mat;
 
@@ -9,6 +11,7 @@ class CameraListener implements CameraBridgeViewBase.CvCameraViewListener2 {
     static final int VIEW_MODE_DEFAULT   = 0;
     static final int VIEW_MODE_RGBA      = 1;
     static final int VIEW_MODE_GRAYSCALE = 2;
+    static final int VIEW_MODE_SOBEL = 3;
 
     //Mode selectors:
     private int mViewMode  = VIEW_MODE_DEFAULT;
@@ -16,7 +19,7 @@ class CameraListener implements CameraBridgeViewBase.CvCameraViewListener2 {
 
     //members
     private Mat mImToProcess;
-
+    private Mat mFilteredImage;
     //Getters and setters
 
     // not used
@@ -44,11 +47,13 @@ class CameraListener implements CameraBridgeViewBase.CvCameraViewListener2 {
     @Override
     public void onCameraViewStarted(int width, int height) {
         mImToProcess = new Mat();
+        mFilteredImage = new Mat();
     }
 
     @Override
     public void onCameraViewStopped() {
         mImToProcess.release();
+        mFilteredImage.release();
     }
 
     @Override
@@ -65,6 +70,10 @@ class CameraListener implements CameraBridgeViewBase.CvCameraViewListener2 {
 
         switch (mViewMode) {
             case VIEW_MODE_DEFAULT:
+                break;
+            case VIEW_MODE_SOBEL:
+                MyImageProc.sobelCalcDisplay(mImToProcess,
+                        inputFrame.gray(), mFilteredImage);
                 break;
         }
         return mImToProcess;
